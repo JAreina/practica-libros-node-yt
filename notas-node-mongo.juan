@@ -1,0 +1,81 @@
+
+
+----
+  LIBRERIA
+* nodemon  --- recargar servidor
+           dependencia de desarrollo
+           arranca desde script de packaga.json
+
+****************************************
+
+* MÉTODOS HTTP
+              GET
+              POST
+              PUT
+              DELETE
+
+* CODIGOS DE RESPUESTA
+
+
+          1XX   INFORMATIVO
+          2xx   CORRECTO
+          3xx  RESPUESTA REDIRECCION
+          4xx  ERROR DEL CLIENTE  404, ETC
+          5xx  ERROR DEL SERVIDOR
+
+****************************************
+
+
+MONGO
+
+$ sudo service mongod start
+$ mongod
+$ mongo
+>
+
+****************************
+
+DRIVER MONGO PARA NODE
+
+https://mongodb.github.io/node-mongodb-native/
+
+npm install mongodb --save
+
+
+
+--------------
+
+POSTMAN
+
+--------------
+
+
+body:  x-www-form-urlencoded   
+
+  key  ----------- value        sin comillas
+
+  ---------------------------------------
+
+GET
+     http://localhost:2222/l/libros
+{
+    "libros": [
+      
+
+        {
+            "_id": "5a23058bde7be31ba0dac386",
+            "fechaMod": "2017-12-01T23:00:00.000Z",
+            "fecha": "2017-12-02T19:56:59.000Z",
+            "texto": "dddddddddd\ndddddddddd\nddddddddd\nddddddddd",
+            "titulo": "En un lugar de la Manch",
+            "__v": 0
+        }
+    ]
+}
+
+
+GET Y PUT Y DELETE
+http://localhost/l/libros/libro/id
+
+POST
+http://localhost/l/libro
