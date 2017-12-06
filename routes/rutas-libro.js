@@ -3,7 +3,7 @@
 
 const express = require('express');
 const api = express.Router();
-
+const auth = require('../middlewares/auth')
 const LibroController = require('../controllers/libro-controller')
 
 //RUTAS///////////////////////////
@@ -22,5 +22,12 @@ api.put('/l/libros/libro/:id',LibroController.updateLibro);
 
 //borrar uno
 api.delete('/l/libros/libro/:id', LibroController.deleteLibro);
+
+
+// isAuth--> middleware que comprueba el token del usuario para poder acceder a la ruta
+api.get('/privado',auth.isAuth,(req,res)=>{
+    res.status(200).send({message: 'USUARIO CON ACCESO'})
+})
+
 
 module.exports= api;

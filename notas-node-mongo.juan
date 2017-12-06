@@ -79,3 +79,34 @@ http://localhost/l/libros/libro/id
 
 POST
 http://localhost/l/libro
+
+
+
+AUTENTICACION
+
+-------------
+
+BASADA EN TOKENS
+
+JSON WEB TOKENS
+
+***********************
+
+ALMACENADO EN CLIENTE
+LOCALSTORAGE 
+
+TRES PARTES:
+
+- CABECERA
+- DATOS QUE SE ENVIAN
+         sub: un identificador
+         name   
+- VERIFICACION
+             codifica en el servicdor 
+             secret esta en el servidor
+
+
+
+libreria : JWT-SIMPLE
+
+
