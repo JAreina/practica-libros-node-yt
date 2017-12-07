@@ -1,18 +1,46 @@
 'use strict';
 
-const jwt = require('jwt-token')
+const jwt = require('jwt-simple')
 const moment = require('moment')
-const conf_token= require('../conf-token')
+const confToken= require('../conf-token')
 
 function createToken(user){
     const payload = {
         sub: user._id,
         iat: moment().unix(),
-        exp: moment().add(15,days).unix()
+        exp: moment().add(15,'days').unix()
 
     }
 
-    jwt.encode(payload,conf_token.SECRET_TOKEN)
+  return  jwt.encode(payload,confToken.SECRET_TOKEN)
 }
 
-module.exports=createToken;
+
+function decodeToken(token){
+    const decoded = new Promise((resolve,reject)=>{
+        try{
+              const payload=jwt.decode(token,confToken.SECRET_TOKEN)
+
+                 //si ha caducado el token
+           if(payload.exp < moment().unix()){
+                 reject({
+                     status:401,
+                     message: "EL TOKEN HA EXPIRADO"
+                 })
+           }
+           resolve(payload.sub);
+        }catch(err){
+            reject({
+                status: 500,
+                message:"TOKEN NO VÁLIDO"
+            })
+        }
+    })
+    return decoded;
+}
+
+
+module.exports={
+    createToken,
+    decodeToken
+}

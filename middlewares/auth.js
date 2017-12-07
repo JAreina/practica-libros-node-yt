@@ -1,8 +1,7 @@
 'use strict';
 
-const jwt = require('jwt-token')
-const moment = require('moment')
-const conf_token= require('../conf-token')
+const service= require('../service')
+
 
 
 function isAuth(req,res,next){
@@ -14,15 +13,18 @@ function isAuth(req,res,next){
 
     // SI USUARIO EST A AUTORIZADO
     const token = req.headers.authorization.split(' ')[1];
-    const payload = jwt.decode(token,conf_token.SECRET_TOKEN);
+    
 
-    //si ha caducado el token
-    if(payload.exp < moment().unix()){
-        return res.status(401).send({messag: 'TOKEN CADUCADO'})
-    }
-
-    req.user = payload.sub
-    next()
+    //usamos metodo que resuelve una promesa
+    service.decodeToken(token)
+                .then(response=>{
+                    req.user= response
+                    next()
+                })
+                .catch(response =>{
+                    res.status(response.status);
+                })
+ 
 }
 
 

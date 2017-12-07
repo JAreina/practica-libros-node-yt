@@ -15,7 +15,7 @@ const UsuarioSchema = new Schema({
 })
 
 //a ejecutar antes
-UsuarioSchema.pre('save',(next)=>{
+UsuarioSchema.pre('save',function(next){
     let user= this;
     if(user.isModified('password')) return next()
 
@@ -30,7 +30,7 @@ UsuarioSchema.pre('save',(next)=>{
     })
 })
 
-Usuario.methods.gravatar = function(){
+UsuarioSchema.methods.gravatar = function(){
     if(!this.email) return 'https://gravatar.com/avatar/?s=2006d=retro'
 
     const md5= crypto.createHash('md5').update(this.email).digest('hex') 
